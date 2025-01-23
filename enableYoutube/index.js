@@ -34,7 +34,7 @@ const  updateStatusTV = (array, targetName, updateStatus) => {
 
 // Fungsi utama untuk menangani tiap perangkat
 const processDevices = async () => {
-    const statusError  = ["Connecting","Cannot connect to device" , "Failed to enable Youtube data application" ,"Success"]
+    const statusError  = ["Connecting","Cannot connect to device" , "Failed to enable Youtube data application" ,"Success","Cannot reboot system"]
     const devices = readDevicesFromFile();
     const clearDevices = [];
 
@@ -59,6 +59,17 @@ const processDevices = async () => {
 
             if (clearOutput.toLowerCase().includes('failed')) {
                 updateStatusTV(clearDevices,device.name,statusError[2])
+                console.error(`Cannot enable youtube data application ${device.name}: ${clearOutput}`);
+                continue; 
+            }
+
+
+            console.log(`Trying to reboot device : ${device.name} | ${device.ipAddress} ...`)
+            const rebootSystem = `"${adbPath}" -s ${deviceAddress} reboot`;
+            const rebootSystemOutput = await runCommand(rebootSystem);
+
+            if (rebootSystemOutput.toLowerCase().includes('failed')) {
+                updateStatusTV(rebootSystemOutput,device.name,statusError[3])
                 console.error(`Cannot enable youtube data application ${device.name}: ${clearOutput}`);
                 continue; 
             }
