@@ -69,7 +69,7 @@ const processDevices = async () => {
             const rebootSystemOutput = await runCommand(rebootSystem);
 
             if (rebootSystemOutput.toLowerCase().includes('failed')) {
-                updateStatusTV(rebootSystemOutput,device.name,statusError[3])
+                updateStatusTV(rebootSystemOutput,device.name,statusError[4])
                 console.error(`Cannot enable youtube data application ${device.name}: ${clearOutput}`);
                 continue; 
             }
