@@ -62,7 +62,7 @@ const rebootDevice = async () => {
             const uptimeSeconds = parseFloat(uptimeOutput.split(" ")[0]);
             const uptimeDays = uptimeSeconds / (60 * 60 * 24);
             
-            if (uptimeDays > 10) {
+            if (uptimeDays > 30) { 
                 console.log(`Trying to reboot : ${device.name} | ${device.ipAddress} ...`);
                 const rebootSystem = `"${adbPath}" -s ${deviceAddress} reboot`;
                 const rebootSystemOutput = await runCommand(rebootSystem);
