@@ -97,5 +97,3 @@ cron.schedule("0 13 * * *", () => {
   console.log("Running Program");
   processDevices();
 });
-
-processDevices();
